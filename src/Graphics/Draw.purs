@@ -1,7 +1,7 @@
 module Graphics.Draw where
 
 import Graphics.Canvas
-import Types (Coordinate, CanvasEff, Triangle)
+import Types (Coordinate, CanvasEff, Triangle, Color(..))
 import Prelude
 import Math as Math
 
@@ -14,12 +14,12 @@ drawCircle circle ctx = do
   closePath ctx
 
 drawTriangle :: Triangle -> Context2D -> CanvasEff Context2D
-drawTriangle triangle ctx = do
+drawTriangle tr ctx = do
   beginPath ctx
-  moveTo    ctx triangle.a.x triangle.a.y
-  lineTo    ctx triangle.b.x triangle.b.y
-  lineTo    ctx triangle.c.x triangle.c.y
-  lineTo    ctx triangle.a.x triangle.a.y
+  moveTo    ctx tr.a.coord.x tr.a.coord.y
+  lineTo    ctx tr.b.coord.x tr.b.coord.y
+  lineTo    ctx tr.c.coord.x tr.c.coord.y
+  lineTo    ctx tr.a.coord.x tr.a.coord.y
   setStrokeStyle "#d1d1d1" ctx
   stroke    ctx
   closePath ctx
