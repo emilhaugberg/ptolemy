@@ -9,6 +9,7 @@ drawCircle :: Arc -> Context2D -> CanvasEff Context2D
 drawCircle circle ctx = do
   beginPath ctx
   arc       ctx circle
+  setStrokeStyle "#d1d1d1" ctx
   stroke    ctx
   closePath ctx
 
@@ -19,6 +20,7 @@ drawTriangle triangle ctx = do
   lineTo    ctx triangle.b.x triangle.b.y
   lineTo    ctx triangle.c.x triangle.c.y
   lineTo    ctx triangle.a.x triangle.a.y
+  setStrokeStyle "#d1d1d1" ctx
   stroke    ctx
   closePath ctx
 

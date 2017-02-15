@@ -49,10 +49,19 @@ linesToDot c t ctx = do
   beginPath ctx
   moveTo    ctx t.a.x t.a.y
   lineTo    ctx c.x   c.y
+  setStrokeStyle "red" ctx
+  stroke    ctx
+  closePath ctx
+  beginPath ctx
   moveTo    ctx t.b.x t.b.y
   lineTo    ctx c.x   c.y
+  setStrokeStyle "blue" ctx
+  stroke    ctx
+  closePath ctx
+  beginPath ctx
   moveTo    ctx t.c.x t.c.y
   lineTo    ctx c.x   c.y
+  setStrokeStyle "green" ctx
   stroke    ctx
   closePath ctx
 
