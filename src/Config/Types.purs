@@ -1,4 +1,4 @@
-module Types where
+module Config.Types where
 
 import Control.Monad.Eff (Eff)
 import Graphics.Canvas (CANVAS, Arc)
