@@ -62,6 +62,20 @@ startingAngle = 0.0
 speed :: Number
 speed = Math.pi / 50.0
 
+distanceBetweenPoints :: Coordinate -> Coordinate -> Number
+distanceBetweenPoints c1 c2 =
+  Math.sqrt (square (Math.abs (c1.x - c2.x)) + square (Math.abs (c1.y - c2.y)))
+  where
+    square x = x * x
+
+drawLength :: Coordinate -> Triangle -> Context2D -> CanvasEff Context2D
+drawLength c t ctx = do
+  beginPath ctx
+  fillText ctx (show (parseInt (distanceBetweenPoints {x: t.a.x, y: t.a.y} c))) 900.0 500.0
+  fillText ctx (show (parseInt (distanceBetweenPoints {x: t.b.x, y: t.b.y} c))) 900.0 550.0
+  fillText ctx (show (parseInt (distanceBetweenPoints {x: t.c.x, y: t.c.y} c))) 900.0 600.0
+  closePath ctx
+
 main :: forall e. (Partial) => Eff (ref :: REF, timer :: TIMER, canvas :: CANVAS | e) Unit
 main = void do
   Just canvas <- getCanvasElementById "canvas"
@@ -76,3 +90,6 @@ main = void do
     drawTriangle triangle ctx
     drawDot (coordOnCircle angle') ctx
     linesToDot (coordOnCircle angle') triangle ctx
+    drawLength (coordOnCircle angle') triangle ctx
+
+foreign import parseInt :: Number -> Int
