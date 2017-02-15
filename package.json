@@ -1,0 +1,24 @@
+{
+  "name": "ptolemy",
+  "version": "1.0.0",
+  "description": "Special case of Ptomely's theorem.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Ptomely",
+    "Math",
+    "PureScript"
+  ],
+  "author": "Emil Haugberg <emilveen@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "pulp": "^10.0.0",
+    "purescript": "^0.10.7"
+  },
+  "devDependencies": {
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.3.0"
+  }
+}
