@@ -44,6 +44,18 @@ coordOnCircle angle = { x, y }
     x = radius * (Math.cos angle) + 500.0
     y = radius * (Math.sin angle) + 500.0
 
+linesToDot :: Coordinate -> Triangle -> Context2D -> CanvasEff Context2D
+linesToDot c t ctx = do
+  beginPath ctx
+  moveTo    ctx t.a.x t.a.y
+  lineTo    ctx c.x   c.y
+  moveTo    ctx t.b.x t.b.y
+  lineTo    ctx c.x   c.y
+  moveTo    ctx t.c.x t.c.y
+  lineTo    ctx c.x   c.y
+  stroke    ctx
+  closePath ctx
+
 startingAngle :: Angle
 startingAngle = 0.0
 
@@ -54,16 +66,13 @@ main :: forall e. (Partial) => Eff (ref :: REF, timer :: TIMER, canvas :: CANVAS
 main = void do
   Just canvas <- getCanvasElementById "canvas"
   ctx         <- getContext2D canvas
-
   angle       <- newRef startingAngle
 
   setInterval 50 $ void do
     clearRect ctx {x: 0.0, y: 0.0, w: width, h: height}
-
     modifyRef angle ((+) speed)
-
     angle' <- readRef angle
-
     drawCircle circle ctx
     drawTriangle triangle ctx
     drawDot (coordOnCircle angle') ctx
+    linesToDot (coordOnCircle angle') triangle ctx
