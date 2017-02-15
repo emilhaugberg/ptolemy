@@ -22,8 +22,8 @@ drawTriangle triangle ctx = do
   stroke    ctx
   closePath ctx
 
-dot :: Coordinate -> Context2D -> CanvasEff Context2D
-dot c ctx = do
+drawDot :: Coordinate -> Context2D -> CanvasEff Context2D
+drawDot c ctx = do
   beginPath ctx
   arc ctx arc'
   setFillStyle "black" ctx
