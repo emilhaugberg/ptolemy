@@ -1,4 +1,5 @@
 module Config.Main (
+    showCoordinate,
     width,
     height,
     radius,
@@ -8,12 +9,16 @@ module Config.Main (
     speed,
     coordFromAngle,
     distBetweenPoints,
+    greatestDistance,
     parseInt
   ) where
 
 import Config.Types
-import Prelude ((*), (/), (+), (-), ($))
+import Data.Foldable
+import Data.Ordering (Ordering(..))
+import Data.Maybe (Maybe(..), fromJust)
 import Math (pi, sin, cos, sqrt, abs) as Math
+import Prelude ((*), (/), (+), (-), ($), (>), (<>), show)
 
 width :: Number
 width  = 1000.0
@@ -62,5 +67,14 @@ distBetweenPoints c1 c2 = Math.sqrt $ distance c1 c2
   where
     distance c1' c2' = (square (Math.abs (c1'.x - c2'.x)) + square (Math.abs (c1'.y - c2'.y)))
     square x         = x * x
+
+greatestDistance :: Partial => Array TrianglePoint -> Coordinate -> TrianglePoint
+greatestDistance xs c = fromJust $ maximumBy greatest xs
+  where
+    greatest x y = if (dist x.coord) > (dist y.coord) then GT else LT
+    dist x       = distBetweenPoints x c
+
+showCoordinate :: TrianglePoint -> String
+showCoordinate tr = "x " <> show tr.coord.x <> "y " <> show tr.coord.y <> "color: " <> show tr.color
 
 foreign import parseInt :: Number -> Int
