@@ -4,7 +4,8 @@
   "description": "Special case of Ptomely's theorem.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "export PATH=node_modules/.bin:$PATH && node_modules/.bin/pulp build && webpack",
+    "start": "npm run build && node_modules/.bin/webpack-dev-server --content-base public/ --hot --inline"
   },
   "keywords": [
     "Ptomely",
