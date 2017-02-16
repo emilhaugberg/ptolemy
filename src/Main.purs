@@ -11,14 +11,15 @@ import Graphics.Canvas (CANVAS, Context2D, clearRect, getCanvasElementById, getC
 import Graphics.Draw (drawCircle, drawDot, drawTriangle, drawLinesToDot, drawLength, drawProgress)
 import Prelude (Unit, bind, void, ($), (+), (<>), map, show)
 
-draw :: forall e. Context2D -> Angle -> Eff (canvas :: CANVAS | e) Unit
-draw ctx ang = void do
+draw :: forall e. (Partial) => Context2D -> Angle -> Array TrianglePoint -> Eff (canvas :: CANVAS | e) Unit
+draw ctx ang ts = void do
   drawCircle circle ctx
   drawTriangle triangle ctx
   drawDot (coordFromAngle ang) ctx
   drawDot {x: triangle.a.coord.x, y: triangle.a.coord.y} ctx
   drawDot {x: triangle.b.coord.x, y: triangle.b.coord.y} ctx
   drawDot {x: triangle.c.coord.x, y: triangle.c.coord.y} ctx
+  drawProgress ts ang ctx
 
 showCoordinate :: TrianglePoint -> String
 showCoordinate tr = "x " <> show tr.coord.x <> "y " <> show tr.coord.y <> "color: " <> show tr.color
@@ -35,6 +36,5 @@ main = void do
     clearRect ctx {x: 0.0, y: 0.0, w: width, h: height}
     modifyRef angle ((+) speed)
     angle' <- readRef angle
-    draw ctx angle'
-    drawProgress triangleDots angle' ctx
+    draw ctx angle' triangleDots
     foreachE triangleDots \tp -> void $ drawLinesToDot (coordFromAngle angle') tp ctx

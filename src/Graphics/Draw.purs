@@ -56,7 +56,7 @@ drawLength c t ctx = do
   fillText ctx (show (parseInt (distBetweenPoints {x: t.c.coord.x, y: t.c.coord.y} c))) 900.0 600.0
   closePath ctx
 
-drawProgress :: forall e. (Partial) => Array TrianglePoint -> Angle -> Context2D -> Eff (canvas :: CANVAS, console :: CONSOLE | e) Context2D
+drawProgress :: forall e. (Partial) => Array TrianglePoint -> Angle -> Context2D -> Eff (canvas :: CANVAS | e) Context2D
 drawProgress xs a ctx = do
   let largest = greatestDistance xs (coordFromAngle a)
   let smaller = filter (\x -> x.color /= largest.color) xs
@@ -69,13 +69,6 @@ drawProgress xs a ctx = do
   let smallerTotal   = smaller1' + smaller2'
   let lengthSmaller1 = 300.0 * (smaller1' / smallerTotal)
   let lengthSmaller2 = 300.0 * (smaller2' / smallerTotal)
-
-  -- log (showCoordinate smaller1)
-  -- log (showCoordinate smaller2)
-
-  log (show lengthSmaller1)
-  log (show lengthSmaller2)
-  log (show $ lengthSmaller2 + lengthSmaller1)
 
   beginPath ctx
   moveTo ctx 900.0 300.0
