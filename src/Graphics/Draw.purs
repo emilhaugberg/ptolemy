@@ -82,11 +82,11 @@ drawProgress xs a ctx = do
   stroke ctx
   closePath ctx
   where
-    largest = greatestDistance xs (coordFromAngle a)
-    smaller = filter (\x -> x.color /= largest.color) xs
+    largest        = greatestDistance xs (coordFromAngle a)
+    smaller        = filter (\x -> x.color /= largest.color) xs
 
-    smaller1 = fromJust $ smaller !! 0
-    smaller2 = fromJust $ smaller !! 1
+    smaller1       = fromJust $ smaller !! 0
+    smaller2       = fromJust $ smaller !! 1
 
     smaller1'      = distBetweenPoints smaller1.coord (coordFromAngle a)
     smaller2'      = distBetweenPoints smaller2.coord (coordFromAngle a)

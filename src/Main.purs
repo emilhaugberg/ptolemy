@@ -21,9 +21,6 @@ draw ctx ang ts = void do
   drawDot {x: triangle.c.coord.x, y: triangle.c.coord.y} ctx
   drawProgress ts ang ctx
 
-showCoordinate :: TrianglePoint -> String
-showCoordinate tr = "x " <> show tr.coord.x <> "y " <> show tr.coord.y <> "color: " <> show tr.color
-
 main :: forall e. (Partial) => Eff (ref :: REF, console :: CONSOLE, timer :: TIMER, canvas :: CANVAS | e) Unit
 main = void do
   Just canvas <- getCanvasElementById "canvas"
