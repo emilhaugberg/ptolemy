@@ -58,18 +58,6 @@ drawLength c t ctx = do
 
 drawProgress :: forall e. (Partial) => Array TrianglePoint -> Angle -> Context2D -> Eff (canvas :: CANVAS | e) Context2D
 drawProgress xs a ctx = do
-  let largest = greatestDistance xs (coordFromAngle a)
-  let smaller = filter (\x -> x.color /= largest.color) xs
-
-  let smaller1 = fromJust $ smaller !! 0
-  let smaller2 = fromJust $ smaller !! 1
-
-  let smaller1'      = distBetweenPoints smaller1.coord (coordFromAngle a)
-  let smaller2'      = distBetweenPoints smaller2.coord (coordFromAngle a)
-  let smallerTotal   = smaller1' + smaller2'
-  let lengthSmaller1 = 300.0 * (smaller1' / smallerTotal)
-  let lengthSmaller2 = 300.0 * (smaller2' / smallerTotal)
-
   beginPath ctx
   moveTo ctx 900.0 300.0
   lineTo ctx 900.0 600.0
@@ -93,3 +81,15 @@ drawProgress xs a ctx = do
   setStrokeStyle (show smaller2.color) ctx
   stroke ctx
   closePath ctx
+  where
+    largest = greatestDistance xs (coordFromAngle a)
+    smaller = filter (\x -> x.color /= largest.color) xs
+
+    smaller1 = fromJust $ smaller !! 0
+    smaller2 = fromJust $ smaller !! 1
+
+    smaller1'      = distBetweenPoints smaller1.coord (coordFromAngle a)
+    smaller2'      = distBetweenPoints smaller2.coord (coordFromAngle a)
+    smallerTotal   = smaller1' + smaller2'
+    lengthSmaller1 = 300.0 * (smaller1' / smallerTotal)
+    lengthSmaller2 = 300.0 * (smaller2' / smallerTotal)
